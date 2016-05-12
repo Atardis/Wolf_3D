@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "includes/get_next_line.h"
 
 static void	gnl_reader(t_gnlstore *store, int fd)
 {
@@ -50,6 +50,5 @@ int			get_next_line(int const fd, char **line)
 		store.cache[fd] = store.cache[fd] + ft_strlenre(store.cache[fd], '\n');
 		return (1);
 	}
-	store.cache[fd] = NULL;
 	return (0);
 }

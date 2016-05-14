@@ -12,7 +12,7 @@
 
 #include "../includes/wolf3d.h"
 
-int				verif_caract(char c)
+static int		verif_caract(char c)
 {
 	if (c == '.' || c == 's' || c == '1')
 		return (1);
@@ -30,6 +30,11 @@ static void		ft_send_map(t_a *a, char *str, int y)
 	{
 		if (str[i] != ' ' && verif_caract(str[i]) == 1)
 			a->map[y][++x] = str[i];
+		if (str[i] == 's')
+		{
+			a->x_start = x;
+			a->y_start = y;
+		}
 		i++;
 	}
 }
@@ -75,7 +80,6 @@ int				count_carac(char *str)
 	int 	i;
 	int		count;
 
-	ft_putendl("yolo2");
 	i = -1;
 	count = 0;
 	while(str[++i])
@@ -90,10 +94,8 @@ int				count_carac(char *str)
 
 void			ft_open_map(t_a *a, char *name)
 {
-	ft_putendl("yolo1");
 	if ((a->fd1 = open(name, O_RDONLY)) == -1)
 		ft_error("File Not Present / No Rights");
-	ft_putendl("yolo2");
 	while (get_next_line(a->fd1, &a->line) > 0)
 	{
 		if (a->max_y == 0)
@@ -104,7 +106,6 @@ void			ft_open_map(t_a *a, char *name)
 		a->max_y++;
 		free(a->line);
 	}
-	ft_putendl("yolo2");
 	free(a->line);
 	if (a->max_x == 0 || a->max_y == 0)
 		ft_error("The Map is Invalid");

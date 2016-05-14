@@ -28,16 +28,11 @@ void		ft_creat_windows_image(t_a *a)
 
 int			wolf_keyboard(int keycode, t_a *a)
 {
-	(void)a;
+	ft_putnbr_end(keycode);
 	if (keycode == 53)
 		ft_error("Good Buy My Friends ... Tchuss");
-	if ((keycode == W || keycode == S) && a->dist_wall <= 375)
-	{
-		a->dist_wall += (keycode == W) ? 15 : -15;
-		a->dist_wall += (a->dist_wall == 0) ? 15 : 0;
-		if (a->dist_wall > 375)
-			a->dist_wall = 375;
-	}
+	if ((keycode == W || keycode == S) && (ft_print_case(a) != 0))
+		a->y_start = (keycode == W) ? (a->y_start--) : (a->y_start++);
 	mlx_clear_window(a->mlx, a->win);
 	print_skybox_and_ground(a);
 	return (0);
@@ -53,25 +48,4 @@ int			wolf_mouse(int keycode, int x, int y, t_a *a)
 	ft_putnbr_end(y);
 	ft_putchar('\n');
 	return (0);
-}
-
-
-void		print_skybox_and_ground(t_a *a)
-{
-	int		y;
-	int		x;
-	int		c;
-
-	y = -1;
-	while (++y < MAX_Y)
-	{
-		x = -1;
-		while (++x < MAX_X)
-		{
-			c = (y < (MAX_Y / 2)) ? 0x759BE8 : 0x6CCE8C;
-			*(unsigned int *)(a->data + (x * a->bpp) + (y * a->sl)) = c;
-		}
-	}
-	mlx_put_image_to_window(a->mlx, a->win, a->img, 0, 0);
-	ft_bzero(a->data, MAX_X * MAX_Y);
 }

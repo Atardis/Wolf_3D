@@ -43,6 +43,15 @@ static int		wolf_exit(t_a *a)
 	return (0);
 }
 
+static void		mlx_expose(t_a *a)
+{
+	mlx_hook(a->win, 2, 1L << 2, wolf_keyboard, a);
+	// mlx_hook(a.win, 6, 1L << 6, wolf_mouse, &a);
+	mlx_hook(a->win, 17, 1L << 17, wolf_exit, a);
+	mlx_mouse_hook(a->win, wolf_mouse, a);
+	mlx_loop(a->mlx);
+}
+
 int				main(int argc, char **argv)
 {
 	t_a		a;
@@ -50,16 +59,11 @@ int				main(int argc, char **argv)
 	if (argc == 1 || argc > 3)
 		ft_error("Wolf3d Executable Needs A Map\nSorry My Friends ...");
 	fonction_init(&a);
-	ft_putendl("yolo0");
 	ft_open_map(&a, argv[1]);
 	ft_creat_windows_image(&a);
 	print_skybox_and_ground(&a);
 	ft_print_map(&a);
-	//ft_localisation_start(&a);
-	mlx_hook(a.win, 2, 1L << 2, wolf_keyboard, &a);
-	// mlx_hook(a.win, 6, 1L << 6, wolf_mouse, &a);
-	mlx_hook(a.win, 17, 1L << 17, wolf_exit, &a);
-	mlx_mouse_hook(a.win, wolf_mouse, &a);
-	mlx_loop(a.mlx);
+	ft_localisation_start(&a);
+	mlx_expose(&a);
 	return (0);
 }

@@ -51,8 +51,8 @@ typedef struct      s_a
 	int				max_x;
 	int				max_y;
 	char			**map;
-	int				x_start;
-	int				y_start;
+	double			x_start;
+	double			y_start;
 	int				dist_wall;
 	
 	int				p1x;
@@ -74,11 +74,11 @@ typedef struct      s_a
 void				ft_creat_windows_image(t_a *a);
 int					wolf_keyboard(int keycode, t_a *a);
 int					wolf_mouse(int keycode, int x, int y, t_a *a);
-void				print_skybox_and_ground(t_a *a);
 
 /*
 **		localisation.c
 */
+int					ft_print_case(t_a *a);
 void				ft_localisation_start(t_a *a);
 
 /*
@@ -100,5 +100,6 @@ void				ligne(t_a *a, int c);
 /*
 **		trace_wall.c
 */
+void				print_skybox_and_ground(t_a *a);
 
 #endif

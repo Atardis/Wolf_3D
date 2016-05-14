@@ -43,6 +43,19 @@ int			wolf_keyboard(int keycode, t_a *a)
 	return (0);
 }
 
+int			wolf_mouse(int keycode, int x, int y, t_a *a)
+{
+	ft_putnbr_end(keycode);
+	(void)a;
+	ft_putstr("X -> ");
+	ft_putnbr_end(x);
+	ft_putstr("Y -> ");
+	ft_putnbr_end(y);
+	ft_putchar('\n');
+	return (0);
+}
+
+
 void		print_skybox_and_ground(t_a *a)
 {
 	int		y;

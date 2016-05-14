@@ -48,9 +48,9 @@ typedef struct      s_a
 	int				e;
 	int				fd1;
 	int				fd2;
-	int				size_x;
-	int				size_y;
-	int				**map;
+	int				max_x;
+	int				max_y;
+	char			**map;
 	int				x_start;
 	int				y_start;
 	int				dist_wall;
@@ -73,6 +73,7 @@ typedef struct      s_a
 */
 void				ft_creat_windows_image(t_a *a);
 int					wolf_keyboard(int keycode, t_a *a);
+int					wolf_mouse(int keycode, int x, int y, t_a *a);
 void				print_skybox_and_ground(t_a *a);
 
 /*
@@ -83,7 +84,6 @@ void				ft_localisation_start(t_a *a);
 /*
 **		main.c
 */
-void				ft_error(char *str);
 int					main(int argc, char **argv);
 
 /*

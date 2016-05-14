@@ -28,6 +28,7 @@ SRC = \
 	ft_memalloc.c \
 	ft_memdel.c \
 	ft_bzero.c \
+	ft_error.c \
 	ft_putchar.c \
 	ft_putstr.c \
 	ft_putendl.c \

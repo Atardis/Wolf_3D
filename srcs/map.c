@@ -12,33 +12,28 @@
 
 #include "../includes/wolf3d.h"
 
-static int		verif_caract(char c)
+int				verif_caract(char c)
 {
-	if (c == '.' || c == 's' || c == '1')
+	if (c == '.' || c == 's' || c == '1' || c == '2' || c == '3' || c == '4' ||\
+		c == '5')
 		return (1);
 	return (0);
 }
 
 static void		ft_send_map(t_a *a, char *str, int y)
 {
-	int 	i;
-	int		x;
+	int			i;
+	int			x;
 
 	i = 0;
 	x = -1;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] != ' ' && verif_caract(str[i]) == 1)
 			a->map[y][++x] = str[i];
-		if (str[i] == 's')
-		{
-			a->x_start = x;
-			a->y_start = y;
-		}
 		i++;
 	}
 }
-
 
 static void		ft_read_map(t_a *a, char *name)
 {
@@ -75,23 +70,6 @@ static void		ft_creat_map(t_a *a)
 	}
 }
 
-int				count_carac(char *str)
-{
-	int 	i;
-	int		count;
-
-	i = -1;
-	count = 0;
-	while(str[++i])
-	{
-		if (str[i] != ' ' && verif_caract(str[i]) == 1)
-			count++;
-		else if (verif_caract(str[i]) == 1)
-			ft_error("The Map is Invalid");
-	}
-	return (count);
-}
-
 void			ft_open_map(t_a *a, char *name)
 {
 	if ((a->fd1 = open(name, O_RDONLY)) == -1)
@@ -102,7 +80,7 @@ void			ft_open_map(t_a *a, char *name)
 			a->max_x = count_carac(a->line);
 		if (a->max_y != 0)
 			if (a->max_x != count_carac(a->line))
- 				ft_error("The Map is Invalid");
+				ft_error("The Map is Invalid");
 		a->max_y++;
 		free(a->line);
 	}

@@ -22,7 +22,9 @@ LOC_SRC = srcs/
 
 SRCS = $(addprefix $(LOC_SRC), $(SRC))
 
-SRC =	main.c image_wolf3d.c map.c trace_wall.c  trace_line.c localisation.c
+SRC =	image_wolf3d.c main.c map.c print_wall_wolf.c trace_line.c\
+		trace_line_angle.c trace_line_verif.c trace_wall.c wolf_color.c\
+		wolf_hypotenuse.c other.c move_wolf3d.c
 
 all: $(NAME)
 	@printf ""

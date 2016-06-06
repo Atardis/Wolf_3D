@@ -1,32 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trace_line.c                                       :+:      :+:    :+:   */
+/*   trace_line_verif.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gahubaul <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/05/12 14:31:11 by gahubaul          #+#    #+#             */
-/*   Updated: 2016/05/12 14:31:14 by gahubaul         ###   ########.fr       */
+/*   Created: 2016/05/19 11:37:27 by gahubaul          #+#    #+#             */
+/*   Updated: 2016/05/19 11:37:29 by gahubaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf3d.h"
 
-static int		ft_verif_print(t_a *a)
+static int		other(t_a *a, int x, int y)
 {
-	if (a->bx < MAX_X && a->bx >= 0 && a->by >= 0 && a->by <= (MAX_Y / 2))
-		return (1);
-	return (0);
+	int			i;
+
+	i = *(unsigned int *)(a->data2 + (x * a->bpp2) + (y * a->sl2));
+	if (i != BLACK)
+	{
+		a->color = i;
+		a->p2x = a->bx;
+		a->p2y = a->by;
+		ligne(a, 0xFFFFFF, 2);
+		return (-1);
+	}
+	return (1);
 }
 
-static void		ligne_if(t_a *a, int c, int i)
+static void		ligne_if(t_a *a)
 {
 	int			cumul;
+	int			stop;
+	int			j;
 
 	cumul = a->bdx / 2;
 	a->bi = 0;
-	while (++a->bi <= a->bdx)
+	stop = 1;
+	j = 0;
+	while (++a->bi <= a->bdx && stop == 1)
 	{
+		j++;
 		a->bx += a->bxinc;
 		cumul += a->bdy;
 		if (cumul >= a->bdx)
@@ -34,21 +48,23 @@ static void		ligne_if(t_a *a, int c, int i)
 			cumul -= a->bdx;
 			a->by += a->byinc;
 		}
-		if (i == 1 && (ft_verif_print(a)) != 0)
-			*(UI *)(DATA1 + (a->bx * a->bpp1) + (a->by * a->sl1)) = c;
-		else if (i == 2 && (ft_verif_print(a)) != 0)
-			*(UI *)(DATA2 + (a->bx * a->bpp2) + (a->by * a->sl2)) = c;
+		stop = other(a, a->bx, a->by);
 	}
 }
 
-static void		ligne_else(t_a *a, int c, int i)
+static void		ligne_else(t_a *a)
 {
 	int			cumul;
+	int			stop;
+	int			j;
 
 	cumul = a->bdy / 2;
 	a->bi = 0;
+	j = 0;
+	stop = 1;
 	while (++a->bi <= a->bdy)
 	{
+		j++;
 		a->by += a->byinc;
 		cumul += a->bdx;
 		if (cumul >= a->bdy)
@@ -56,14 +72,11 @@ static void		ligne_else(t_a *a, int c, int i)
 			cumul -= a->bdy;
 			a->bx += a->bxinc;
 		}
-		if (i == 1 && (ft_verif_print(a)) != 0)
-			*(UI *)(DATA1 + (a->bx * a->bpp1) + (a->by * a->sl1)) = c;
-		else if (i == 2 && (ft_verif_print(a)) != 0)
-			*(UI *)(DATA2 + (a->bx * a->bpp2) + (a->by * a->sl2)) = c;
+		stop = other(a, a->bx, a->by);
 	}
 }
 
-void			ligne(t_a *a, int c, int i)
+void			ligne_verif(t_a *a)
 {
 	a->bx = a->p1x;
 	a->by = a->p1y;
@@ -74,7 +87,7 @@ void			ligne(t_a *a, int c, int i)
 	a->bdx = abs(a->bdx);
 	a->bdy = abs(a->bdy);
 	if (a->bdx > a->bdy)
-		ligne_if(a, c, i);
+		ligne_if(a);
 	else
-		ligne_else(a, c, i);
+		ligne_else(a);
 }

@@ -28,3 +28,32 @@ int				count_carac(char *str)
 	}
 	return (count);
 }
+
+void			ft_print_help(t_a *a)
+{
+	char		*str;
+
+	(void)a;
+	str = "\033[33m-------------------------";
+	ft_putendl(str);
+	str = "\033[31mHELP  WOLF3D  GAHUBAUL";
+	ft_putendl(str);
+	str = "\033[33m-------------------------";
+	ft_putendl(str);
+	str = "\033[35mTouche de deplacement ( W,S,A,D ) ( R activer )";
+	ft_putendl(str);
+	str = "Touche de deplacement ( UP,DOWN,LEFT,RIGHT ) ( R desactiver )";
+	ft_putendl(str);
+	str = "Touche de vision ( <-,-> ) ( R activer)";
+	ft_putendl(str);
+	str = "Touche de deplacement ( A,D ) ( R desactiver)";
+	ft_putendl(str);
+	str = "Deplacement plus lent (Maintenir SHIFT enfoncer)";
+	ft_putendl(str);
+	str = "Intervertir les Touche de Deplacement ( R )";
+	ft_putendl(str);
+	str = "Touche C pour changer les couleurs  ( C )";
+	ft_putendl(str);
+	str = "ESC quite le programme ( ESC )";
+	ft_putendl(str);
+}

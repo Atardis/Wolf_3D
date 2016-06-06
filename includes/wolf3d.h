@@ -36,14 +36,17 @@
 # define DOWN 125
 # define LEFT 123
 # define RIGHT 124
+# define UP 126
+# define DOWN 125
 # define W 13
 # define S 1
 # define A 0
 # define D 2
-# define R 30
+# define R 15
 # define C 8
 # define P 35
 # define V 9
+# define M 46
 # define SHIFT 257
 # define PI 3.14159265
 # define MAX_X 500
@@ -56,6 +59,12 @@
 # define P1X a->p1x
 # define P1Y a->p1y
 # define WALL a->dist_wall
+# define KUP a->key_up
+# define KODWN a->key_down
+# define KLEFT a->key_left
+# define KRIGHT a->key_right
+# define KA a->key_a
+# define KD a->key_d
 
 # define UI unsigned int
 
@@ -111,9 +120,12 @@ typedef struct		s_a
 	int				key_d;
 	int				key_left;
 	int				key_right;
+	int				key_up;
+	int				key_down;
 	int				key_c;
 	int				key_v;
 	int				key_p;
+	int				key_r;
 	int				key_shift;
 	int				safe;
 	int				save_x;
@@ -155,6 +167,7 @@ void				wolf_keyboard_move(t_a *a, int keycode);
 **		other.c
 */
 int					count_carac(char *str);
+void				ft_print_help(t_a *a);
 
 /*
 **		print_wall_wolf.c

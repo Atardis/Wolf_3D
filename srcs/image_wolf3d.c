@@ -33,20 +33,17 @@ void			ft_creat_windows_image(t_a *a)
 
 void			ft_init_key(t_a *a)
 {
-	if (a->key_w == 1)
+	if ((a->key_w == 1 && a->key_r != 1) || (KUP == 1 && a->key_r == 1))
 		wolf_keyboard_move(a, W);
-	if (a->key_s == 1)
+	if ((a->key_s == 1 && a->key_r != 1) || (KODWN == 1 && a->key_r == 1))
 		wolf_keyboard_move(a, S);
-	if (a->key_a == 1)
+	if ((a->key_a == 1 && a->key_r != 1) || (KLEFT == 1 && a->key_r == 1))
 		wolf_keyboard_move(a, A);
-	if (a->key_d == 1)
+	if ((a->key_d == 1 && a->key_r != 1) || (KRIGHT == 1 && a->key_r == 1))
 		wolf_keyboard_move(a, D);
-	if (a->key_left == 1)
-	{
+	if ((a->key_left == 1 && a->key_r != 1) || (KA == 1 && a->key_r == 1))
 		a->angle += 2;
-		ft_putnbr_end(a->angle);
-	}
-	if (a->key_right == 1)
+	if ((a->key_right == 1 && a->key_r != 1) || (KD == 1 && a->key_r == 1))
 		a->angle += -2;
 	if (a->key_shift == 1)
 		a->speed = 1;
@@ -62,15 +59,12 @@ static void		event_key_press_next(int keycode, t_a *a)
 		a->key_shift = 1;
 	else if (keycode == 89)
 		a->key_p *= -1;
-	else if (keycode == P && a->key_p != 1)
-	{
-		ft_putstr("\033[33;31m\nThe Segfault's Key Actived\n");
-		a->map[a->max_y + 2][1] = '1';
-	}
-	else if (a->key_p != 1 && keycode != P)
-		a->key_p *= -1;
-	else if (keycode == P && a->key_p == 1)
+	else if (keycode == R)
+		a->key_r *= -1;
+	else if (keycode == P)
 		ft_print_map(a);
+	else if (keycode == M)
+		ft_print_help(a);
 }
 
 int				event_key_press(int keycode, t_a *a)
@@ -91,6 +85,10 @@ int				event_key_press(int keycode, t_a *a)
 		a->key_right = 1;
 	else if (keycode == C)
 		a->key_c *= -1;
+	else if (keycode == UP)
+		a->key_up = 1;
+	else if (keycode == DOWN)
+		a->key_down = 1;
 	event_key_press_next(keycode, a);
 	return (0);
 }
@@ -111,5 +109,9 @@ int				event_key_release(int keycode, t_a *a)
 		a->key_right = 0;
 	else if (keycode == SHIFT)
 		a->key_shift = 0;
+	else if (keycode == UP)
+		a->key_up = 0;
+	else if (keycode == DOWN)
+		a->key_down = 0;
 	return (0);
 }

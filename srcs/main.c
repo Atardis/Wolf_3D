@@ -33,6 +33,9 @@ static void		fonction_init(t_a *a)
 	a->key_shift = 0;
 	a->key_left = 0;
 	a->key_right = 0;
+	a->key_r = 1;
+	a->key_up = 0;
+	a->key_down = 0;
 }
 
 void			ft_print_map(t_a *a)
